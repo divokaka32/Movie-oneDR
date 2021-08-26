@@ -12,6 +12,19 @@
       h1 {
         text-align: center;
       }
+      .hilang {
+        animation: hilang 0.6s forwards;
+      }
+
+      @keyframes hilang {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          margin-left: 100%;
+          opacity: 0;
+        }
+      }
     </style>
     <title>Movie IMDb</title>
   </head>
@@ -35,7 +48,7 @@
 
         <!-- Awal Search -->
         <div class="input-group mt-3 mb-3">
-          <input type="text" class="form-control input-keyword" placeholder="Searc Movie" aria-label="Recipient's username" aria-describedby="button-addon2" />
+          <input type="text" class="form-control input-keyword" placeholder="Search Movies..." aria-label="Recipient's username" aria-describedby="button-addon2" />
           <button class="btn btn-outline-primary search-button" type="button" id="button-addon2">Search</button>
         </div>
         <!-- Akhir Search -->

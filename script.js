@@ -1,4 +1,5 @@
 // ketika tombol di ketik
+const alertPopup = document.querySelector('.alert-popup');
 const searchButton = document.querySelector('.search-button');
 searchButton.addEventListener('click', async function () {
     try {
@@ -7,7 +8,14 @@ searchButton.addEventListener('click', async function () {
         // console.log(movie)
         updateUI(movies);
     } catch (err) {
-        alert(err);
+        if (alertPopup.classList.contains('hilang')) {
+            alertPopup.classList.remove('hilang')
+            return err;
+        }
+    } finally {
+        setTimeout(() => {
+            alertPopup.classList.add('hilang')
+        }, 1000)
     }
 });
 
@@ -21,7 +29,7 @@ function getMovie(inputKeyword) {
         })
         .then(response => {
             if (response.Response === "False") {
-                throw new Error(response.Error);
+                throw new Error(alert(response.Error));
             }
             // return console.log(response);
             return response.Search;
@@ -61,7 +69,6 @@ document.addEventListener('click', async function (e) {
     if (e.target.classList.contains('detail-button')) {
         // console.log('ok');
         try {
-
             const imdbid = e.target.dataset.imdbid;
             const movieDetail = await getMovieDetail(imdbid);
             // console.log(movieDetail);
@@ -112,14 +119,14 @@ function showMovieDetail(md) {
             </div>`
 }
 
+
+// ALERT
 function alert(err) {
-    const alertPopup = document.querySelector('.alert-popup');
-    const alert = `<div class="alert alert-danger d-flex align-items-center" role="alert">
+    const alerts = `<div class="alert alert-danger d-flex align-items-center" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                         <div>
                         ${err}
                         </div>
                     </div>`;
-    return alertPopup.innerHTML = alert;
-
+    return alertPopup.innerHTML = alerts;
 }
