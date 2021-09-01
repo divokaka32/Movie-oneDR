@@ -25,7 +25,7 @@ function getMovie(inputKeyword) {
         .then(response => {
             if (!response.ok) {
                 console.log(response)
-                throw new Error(alert(`API Key is Wrong`)); // jika API Key nya salah
+                throw new Error(alert(`Incorrect API Key`)); // jika API Key nya salah
             } // throw new Error (isi) => masuk ke catch (err), err = isi
             return response.json();
         })
