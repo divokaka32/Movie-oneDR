@@ -24,15 +24,19 @@ function getMovie(inputKeyword) {
     return fetch('http://www.omdbapi.com/?apikey=eb867953&s=' + inputKeyword)
         .then(response => {
             if (!response.ok) {
-                // console.log(response)
-                throw new Error(alert(`${response.statusText}, salah API key = ${response.url} `)); // jika API Key nya salah
+                console.log(response)
+                throw new Error(alert(`API Key is Wrong`)); // jika API Key nya salah
             } // throw new Error (isi) => masuk ke catch (err), err = isi
             return response.json();
         })
         .then(response => {
             if (response.Response === "False") { // jika salah memasukkan value (kosong, typo di input)
-                // console.log(response)
-                throw new Error(alert(response.Error));
+                console.log(response)
+                if (response.Error === "Incorrect IMDb ID.") {
+                    throw new Error(alert('Please fill out this field'));
+                } else {
+                    throw new Error(alert(response.Error));
+                }
             }
             return response.Search;
         })
