@@ -16,7 +16,7 @@ searchButton.addEventListener('click', async function () {
     } finally {
         setTimeout(() => {
             alertPopup.classList.add('hilang')
-        }, 1000)
+        }, 1200)
     }
 });
 
@@ -24,14 +24,14 @@ function getMovie(inputKeyword) {
     return fetch('http://www.omdbapi.com/?apikey=eb867953&s=' + inputKeyword)
         .then(response => {
             if (!response.ok) {
-                console.log(response)
+                // console.log(response)
                 throw new Error(alert(`Incorrect API Key`)); // jika API Key nya salah
             } // throw new Error (isi) => masuk ke catch (err), err = isi
             return response.json();
         })
         .then(response => {
             if (response.Response === "False") { // jika salah memasukkan value (kosong, typo di input)
-                console.log(response)
+                // console.log(response)
                 if (response.Error === "Incorrect IMDb ID.") {
                     throw new Error(alert('Please fill out this field'));
                 } else {
