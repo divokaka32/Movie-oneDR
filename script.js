@@ -8,6 +8,7 @@ searchButton.addEventListener('click', async function () {
         // console.log(movie)
         updateUI(movies);
     } catch (err) {
+        // console.log(err)
         if (alertPopup.classList.contains('hilang')) {
             alertPopup.classList.remove('hilang')
             return err;
@@ -23,15 +24,16 @@ function getMovie(inputKeyword) {
     return fetch('http://www.omdbapi.com/?apikey=eb867953&s=' + inputKeyword)
         .then(response => {
             if (!response.ok) {
-                throw new Error(response.statusText);
-            }
+                // console.log(response)
+                throw new Error(alert(`${response.statusText}, salah API key = ${response.url} `)); // jika API Key nya salah
+            } // throw new Error (isi) => masuk ke catch (err), err = isi
             return response.json();
         })
         .then(response => {
-            if (response.Response === "False") {
+            if (response.Response === "False") { // jika salah memasukkan value (kosong, typo di input)
+                // console.log(response)
                 throw new Error(alert(response.Error));
             }
-            // return console.log(response);
             return response.Search;
         })
 };
@@ -74,7 +76,7 @@ document.addEventListener('click', async function (e) {
             // console.log(movieDetail);
             updateUIDetail(movieDetail);
         } catch (err) {
-            console.log(err)
+            return err
         }
     }
 });
@@ -84,7 +86,7 @@ function getMovieDetail(imdbid) {
         .then(response => {
             // console.log(response)
             if (!response.ok) {
-                throw new Error(response.statusText);
+                throw new Error(alert(response.statusText));
             }
             return response.json();
         })
